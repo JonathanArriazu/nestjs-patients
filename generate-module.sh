@@ -10,3 +10,5 @@ nest generate service modules/$MODULE_NAME
 
 # Generar el controlador dentro del módulo
 nest generate controller modules/$MODULE_NAME
+
+# Ejecutar con: .\generate-module.sh nombre-del-modulo
