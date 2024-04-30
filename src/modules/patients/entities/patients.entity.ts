@@ -9,9 +9,10 @@ export class Patient {
   @Column()
   firstName: string;
 
-  @Column()
-  lastName: string;
 
   @Column({ default: true })
   isActive: boolean;
+
+  @Column({ nullable: true }) 
+    deletedAt: Date;
 }

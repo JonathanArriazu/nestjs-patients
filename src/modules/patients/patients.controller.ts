@@ -19,8 +19,8 @@ export class PatientsController {
 
   @Post('patients')
   async createPatient(@Body() createPatient: Patient): Promise<Patient> {
-    const { firstName, lastName, isActive } = createPatient;
-    return await this.patientsService.createPatient(firstName, lastName, isActive);
+    const { firstName, isActive } = createPatient;
+    return await this.patientsService.createPatient(firstName, isActive);
   }
 
   @Put('patients/:id')
