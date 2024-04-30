@@ -4,12 +4,13 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { databaseConfig } from 'src/config/database/data.base';
 import { PatientsModule } from '../patients/patients.module';
-
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(databaseConfig),
-    PatientsModule
+    PatientsModule,
+    ConfigModule
   ],
   controllers: [AppController],
   providers: [AppService],
