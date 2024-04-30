@@ -1,6 +1,8 @@
 import { Controller, Get, Param, Delete, Post, Body, Put } from '@nestjs/common';
 import { PatientsService } from './patients.service';
 import { Patient } from './entities/patients.entity';
+import { CreatePatientDto } from './dto/create-patient-dto';
+import { UpdatePatientDto } from './dto/update-patient-dto';
 
 @Controller('')
 export class PatientsController {
@@ -18,14 +20,14 @@ export class PatientsController {
   }
 
   @Post('patients')
-  async createPatient(@Body() createPatient: Patient): Promise<Patient> {
-    const { firstName, isActive } = createPatient;
-    return await this.patientsService.createPatient(firstName, isActive);
+  async createPatient(@Body() CreatePatientDto: CreatePatientDto): Promise<Patient> {
+    //const { firstName, isActive } = createPatient;
+    return await this.patientsService.createPatient(CreatePatientDto);
   }
 
   @Put('patients/:id')
-  async update(@Param('id') id: number, @Body() updateUserDto: any) {
-    return this.patientsService.updatePatient(id, updateUserDto);
+  async update(@Param('id') id: number, @Body() UpdatePatientDto: UpdatePatientDto) {
+    return this.patientsService.updatePatient(id, UpdatePatientDto);
   }
 
   @Delete('patients/:id')

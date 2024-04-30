@@ -2,6 +2,8 @@ import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestj
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, UpdateResult } from 'typeorm';
 import { Patient } from './entities/patients.entity';
+import { CreatePatientDto } from './dto/create-patient-dto';
+import { UpdatePatientDto } from './dto/update-patient-dto';
 
 @Injectable()
 export class PatientsService {
@@ -18,8 +20,8 @@ export class PatientsService {
     }    
   }
 
-  async createPatient(firstName: string, isActive: boolean): Promise<Patient> {
-    const newPatient = this.patientsRepository.create({ firstName, isActive });
+  async createPatient(CreatePatientDto: CreatePatientDto): Promise<Patient> {
+    const newPatient = this.patientsRepository.create(CreatePatientDto);
 
     try {
       const savedPatient = await this.patientsRepository.save(newPatient);
@@ -38,12 +40,12 @@ export class PatientsService {
     
   }
 
-  async updatePatient(id: number, updatePatient: Partial<Patient>): Promise<UpdateResult | undefined> {
+  async updatePatient(id: number, UpdatePatientDto: UpdatePatientDto): Promise<UpdateResult | undefined> {
     
     try{
       const patient: UpdateResult = await this.patientsRepository.update(
         id,
-        updatePatient,
+        UpdatePatientDto,
       );
       return patient;
     } catch (error) {
