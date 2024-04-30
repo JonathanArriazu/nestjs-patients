@@ -11,7 +11,11 @@ export class PatientsService {
   ) {}
 
   findAll(): Promise<Patient[]> {
-    return this.patientsRepository.find();
+    try{
+      return this.patientsRepository.find();
+    } catch (error) {
+      throw new HttpException('Failed to find patients', HttpStatus.INTERNAL_SERVER_ERROR);
+    }    
   }
 
   async createPatient(firstName: string, isActive: boolean): Promise<Patient> {
@@ -26,28 +30,42 @@ export class PatientsService {
   }
 
   findOne(id: number): Promise<Patient | null> {
-    return this.patientsRepository.findOneBy({ id });
+    try{
+      return this.patientsRepository.findOneBy({ id });
+    } catch (error) {
+      throw new HttpException('Failed to find patient', HttpStatus.INTERNAL_SERVER_ERROR);
+    } 
+    
   }
 
   async updatePatient(id: number, updatePatient: Partial<Patient>): Promise<UpdateResult | undefined> {
+    
+    try{
       const patient: UpdateResult = await this.patientsRepository.update(
         id,
         updatePatient,
       );
       return patient;
+    } catch (error) {
+      throw new HttpException('Failed to update patient', HttpStatus.INTERNAL_SERVER_ERROR);
+    }    
   }
 
   /* async remove(id: number): Promise<void> {
     await this.patientsRepository.delete(id);
   } */
   async removePatient(id: number): Promise<void> {
-    const existingPatient = await this.patientsRepository.findOne({
-      where: { id }
-    });
-
-    existingPatient.isActive = false;
-
-    await this.patientsRepository.save(existingPatient);
+    try{
+      const existingPatient = await this.patientsRepository.findOne({
+        where: { id }
+      });
+  
+      existingPatient.isActive = false;
+  
+      await this.patientsRepository.save(existingPatient);
+    } catch (error) {
+      throw new HttpException('Failed to update patient', HttpStatus.INTERNAL_SERVER_ERROR);
+    }         
   }
 
   /* async remove(idcategory: string): Promise<DeleteResult | undefined> {
