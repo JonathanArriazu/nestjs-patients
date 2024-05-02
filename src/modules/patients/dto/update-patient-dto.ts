@@ -1,5 +1,5 @@
 
 export class UpdatePatientDto {
-    firstName: string;  
+    fullName: string;  
     isActive: boolean;
   }
