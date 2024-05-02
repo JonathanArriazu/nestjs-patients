@@ -1,5 +1,6 @@
 import { BaseEntity } from 'src/config/database/base.entity';
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { MedicalHistory } from 'src/modules/medical-history/entities/medical-history.entity';
+import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn } from 'typeorm';
 
 @Entity()
 export class Patient extends BaseEntity {
@@ -10,4 +11,8 @@ export class Patient extends BaseEntity {
 
   @Column({ default: true })
   isActive: boolean;
+
+  @OneToOne(() => MedicalHistory)
+    @JoinColumn()
+    medicalHistory: MedicalHistory
 }
