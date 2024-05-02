@@ -3,8 +3,6 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Patient extends BaseEntity {
-  @PrimaryGeneratedColumn()
-    id: number;
 
   @Column()
   fullName: string;
