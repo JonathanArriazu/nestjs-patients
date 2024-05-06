@@ -14,7 +14,11 @@ export class DeseasesService {
 
   findAll(): Promise<Desease[]> {
     try{
-      return this.deseasesRepository.find();
+      return this.deseasesRepository.find({
+        relations: {
+          medicalHistory: true,
+        }
+      });
     } catch (error) {
       throw new HttpException('Failed to find deseases', HttpStatus.INTERNAL_SERVER_ERROR);
     }    

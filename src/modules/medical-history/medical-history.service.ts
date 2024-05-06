@@ -4,6 +4,7 @@ import { UpdateMedicalHistoryDto } from './dto/update-medical-history.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { MedicalHistory } from './entities/medical-history.entity';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
+import { Desease } from '../deseases/entities/desease.entity';
 
 @Injectable()
 export class MedicalHistoryService {
@@ -14,7 +15,11 @@ export class MedicalHistoryService {
 
   async findAll(): Promise<MedicalHistory[]> {
     try{
-      return await this.medicalHistoryRepository.find();
+      return await this.medicalHistoryRepository.find({
+        relations: {
+          deseases: true,
+        }
+      });
     } catch (error) {
       throw new HttpException('Failed to find medical histories', HttpStatus.INTERNAL_SERVER_ERROR);
     }
