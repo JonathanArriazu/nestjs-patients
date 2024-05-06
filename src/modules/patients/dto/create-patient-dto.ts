@@ -9,4 +9,6 @@ export class CreatePatientDto {
   //@IsNotEmpty()
   //@IsString({ message: DtoErrors.DESCRIPTIONS_EMPTY })
   isActive: boolean;
+
+  medicalHistoryId: number;
 }

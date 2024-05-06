@@ -14,7 +14,11 @@ export class PatientsService {
 
   findAll(): Promise<Patient[]> {
     try{
-      return this.patientsRepository.find();
+      return this.patientsRepository.find({
+        relations: {
+          medicalHistory: true,
+        }
+      });
     } catch (error) {
       throw new HttpException('Failed to find patients', HttpStatus.INTERNAL_SERVER_ERROR);
     }    
@@ -22,7 +26,7 @@ export class PatientsService {
 
   async createPatient(CreatePatientDto: CreatePatientDto): Promise<Patient> {
     const newPatient = this.patientsRepository.create(CreatePatientDto);
-
+    //const newHistory = this.histo
     try {
       const savedPatient = await this.patientsRepository.save(newPatient);
       return savedPatient;

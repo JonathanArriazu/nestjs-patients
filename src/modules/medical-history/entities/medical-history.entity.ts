@@ -1,5 +1,6 @@
 import { BaseEntity } from "src/config/database/base.entity";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Patient } from "src/modules/patients/entities/patients.entity";
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class MedicalHistory extends BaseEntity {
@@ -15,4 +16,7 @@ export class MedicalHistory extends BaseEntity {
 
     @Column()
     medications: string;    
+
+    @OneToOne(() => Patient, (patient) => patient.medicalHistory)
+    patient: Patient;
 }

@@ -12,7 +12,10 @@ export class Patient extends BaseEntity {
   @Column({ default: true })
   isActive: boolean;
 
-  @OneToOne(() => MedicalHistory)
-    @JoinColumn()
-    medicalHistory: MedicalHistory
+  @Column({name: 'medicalHistory_id'})
+  medicalHistoryId: number;
+
+  @OneToOne(() => MedicalHistory, (medicalHistory) => medicalHistory.patient)
+    @JoinColumn({name: 'medicalHistory_id'})
+    medicalHistory: MedicalHistory;
 }
