@@ -1,1 +1,6 @@
-export class CreateDeseaseDto {}
+
+
+export class CreateDeseaseDto {
+    name: string;
+    description: string;
+}

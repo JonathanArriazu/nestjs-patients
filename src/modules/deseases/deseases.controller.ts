@@ -2,29 +2,31 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { DeseasesService } from './deseases.service';
 import { CreateDeseaseDto } from './dto/create-desease.dto';
 import { UpdateDeseaseDto } from './dto/update-desease.dto';
+import { Desease } from './entities/desease.entity';
 
-@Controller('deseases')
+@Controller('')
 export class DeseasesController {
   constructor(private readonly deseasesService: DeseasesService) {}
 
-  @Post()
-  create(@Body() createDeseaseDto: CreateDeseaseDto) {
-    return this.deseasesService.create(createDeseaseDto);
-  }
-
-  @Get()
-  findAll() {
+  @Get('deseases')
+  async findAll(): Promise<Desease[]> {
     return this.deseasesService.findAll();
   }
 
-  @Get(':id')
+  @Get('deseases/:id')
   findOne(@Param('id') id: string) {
     return this.deseasesService.findOne(+id);
   }
 
-  @Patch(':id')
+  @Post('deseases')
+  async createDesease(@Body() createDeseaseDto: CreateDeseaseDto): Promise<Desease> {
+    //const { firstName, isActive } = createPatient;
+    return await this.deseasesService.createDesease(createDeseaseDto);
+  }
+
+  @Patch('deseases/:id')
   update(@Param('id') id: string, @Body() updateDeseaseDto: UpdateDeseaseDto) {
-    return this.deseasesService.update(+id, updateDeseaseDto);
+    return this.deseasesService.updateDesease(+id, updateDeseaseDto);
   }
 
   @Delete(':id')

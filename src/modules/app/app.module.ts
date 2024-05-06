@@ -6,11 +6,13 @@ import { databaseConfig } from 'src/config/database/data.base';
 import { PatientsModule } from '../patients/patients.module';
 import { ConfigModule } from '@nestjs/config';
 import { MedicalHistoryModule } from '../medical-history/medical-history.module';
+import { DeseasesModule } from '../deseases/deseases.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot(databaseConfig),
     PatientsModule,
     MedicalHistoryModule,
+    DeseasesModule,
     ConfigModule
   ],
   controllers: [AppController],
